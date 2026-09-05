@@ -12,12 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -27,9 +24,16 @@ jobs:
       - name: Install and build frontend
         working-directory: client
         run: |
-          npm ci
+          npm install
           npm run build
 
       - name: Install backend dependencies
         working-directory: server
-        run: npm ci
+        run: npm install
+
+      - name: Notify Vercel
+        if: always()
+        uses: vercel/repository-dispatch/actions/status@v1
+        with:
+          name: Vercel - college-help-desk-agent-vercel: lint
+          github_token: ${{ secrets.GITHUB_TOKEN }}
