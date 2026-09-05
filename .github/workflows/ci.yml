@@ -2,26 +2,34 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: '24'
 
-      - name: Install & build frontend
+      - name: Install and build frontend
         working-directory: client
         run: |
-          npm install
+          npm ci
           npm run build
 
-      - name: Install backend
+      - name: Install backend dependencies
         working-directory: server
-        run: npm install
+        run: npm ci
