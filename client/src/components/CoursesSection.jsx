@@ -71,7 +71,7 @@ export default function CoursesSection() {
               <span className="text-maroon font-medium">{coursesContent.mba.avg}</span>
             </div>
             <p className="text-gray-500 text-sm mt-2">
-              Specializations in Finance, Marketing, HR, and IT
+              Specializations in Finance, Marketing, HR, and IIT
             </p>
           </div>
         </div>
